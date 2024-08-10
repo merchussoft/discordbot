@@ -2,6 +2,13 @@ pipeline {
     agent any
 
     stages {
+
+        stage('install_dependice_yarn_global') {
+            steps {
+                sh 'npm install -g yarn'
+            }
+        }
+
         stage('install_dependices') {
             steps {
                 sh 'yarn install'
