@@ -1,0 +1,9 @@
+version: '3'
+services:
+  discord-bot:
+    build: .
+    container_name: discord-bot
+    ports:
+      - "3070:3000"
+    env_file:
+      - .env
