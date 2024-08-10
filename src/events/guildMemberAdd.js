@@ -6,5 +6,10 @@ module.exports = (client, member) => {
 
     // busca el canal de bienvenida
     const welcome_channel = member.guild.channels.cache.find(ch => ch.name === process.env.CHANNEL_WELCOME);
-    welcome_channel.send(`Bienvenido al servidor, ${member}`);
+
+    if(welcome_channel) {
+        let welcome_message = process.env.WELCOME_MESSAGE.replace('{user}', member.user.username)
+        welcome_channel.send(welcome_message);
+    }
+    
 }
