@@ -1,3 +1,5 @@
+const { mensajeBienvenida } = require("../interfaces/mensajeBienvenida");
+
 module.exports = (client, member) => {
     // asignar un rol especifico a los usuarios nuevos
 
@@ -8,7 +10,7 @@ module.exports = (client, member) => {
     const welcome_channel = member.guild.channels.cache.find(ch => ch.name === process.env.CHANNEL_WELCOME);
 
     if(welcome_channel) {
-        let welcome_message = process.env.WELCOME_MESSAGE.replace('{user}', member.user.username)
+        let welcome_message = mensajeBienvenida.replace('{user}', member.user.username)
         welcome_channel.send(welcome_message);
     }
     

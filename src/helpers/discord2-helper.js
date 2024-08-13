@@ -8,8 +8,17 @@ const client = new Client({
         GatewayIntentBits.GuildMembers,
         GatewayIntentBits.GuildVoiceStates, 
         GatewayIntentBits.GuildMessages,
-        GatewayIntentBits.MessageContent
-    ] 
+        GatewayIntentBits.MessageContent,
+        GatewayIntentBits.GuildPresences
+    ],
+    ws: {
+        properties: {
+            $browser: 'Discord iOS'
+        }
+    },
+    presence: {
+        status: 'online'
+    }
 });
 
 client.commands = new Collection();
@@ -30,7 +39,19 @@ for(const file of event_files) {
 }
 
 client.on('ready', () => {
-    console.log(`Logged in as ${client.user.tag}!`);
+    console.log(`Bot ${client.user.tag} está listo y conectado!`);
+
+    // Simula actividad enviando un ping cada 5 minutos
+    setInterval(() => {
+        console.log('Enviando ping para mantener la conexión activa');
+        client.guilds.cache.forEach(guild => {
+            guild.members.fetch();  // Realiza una acción para mantener la conexión activa
+        });
+    }, 300000); // Cada 5 minutos
+});
+
+client.on('error', (error) => {
+    console.error('Error de conexión:', error);
 });
 
 

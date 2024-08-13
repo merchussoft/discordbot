@@ -1,7 +1,15 @@
+const { rulesMessage } = require("../interfaces/rulesMessage");
+
 module.exports = {
     name: 'rules',
     description: 'Reglas del servidor',
     execute(message) {
-        message.channel.send('Por favor, sigue estas reglas: \n1. Respeto mutuo. \n2. No spam. \n3. Usa los canales adecuados.');
+
+        const RulesChannel = message.guild.channels.cache.find(ch => ch.name === "rules");
+        if (!RulesChannel) {
+            return message.reply('No se encontró el canal de Reglas.');
+        }
+
+        RulesChannel.send(rulesMessage);
     },
 };
